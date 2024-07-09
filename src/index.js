@@ -102,6 +102,13 @@ class CreateComment extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
+    this.props.onCommentSubmit(
+      {
+        user: this.state.user.trim(),
+        content: this.state.content.trim(),
+
+      }
+    )
     this.setState(() => ({
       user: "",
       content: ""
