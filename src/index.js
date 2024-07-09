@@ -79,21 +79,51 @@ class CreateComment extends Component {
       content: "",
       user: "",
     };
+    this.handleUserChange = this.handleUserChange.bind(this); //react不会自动绑定，需要手动绑定方法到实例
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  //定义处理对应事件的状态更新方法
+  handleUserChange(event) {
+    const val = event.target.value;
+    this.setState(()=>({
+      user:val
+    }));
+    console.log("user: ", this.state.user)
+  }
+  handleTextChange(event) {
+    const val = event.target.value;
+    this.setState(() => ({
+      content: val
+    }
+    ));
+    console.log("content: ", this.state.content)
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    this.setState(() => ({
+      user: "",
+      content: ""
+    }));
   }
   render() {
     return React.createElement(
       "form",
       {
         className: "createComment",
+        onSubmit: this.handleSubmit //将状态更新函数绑定到对应的事件
       },
       React.createElement("input", {
         type: "text",
         placeholder: "Your name",
         value: this.state.user,
+        onChange: this.handleUserChange
       }),
       React.createElement("input", {
         type: "text",
         placeholder: "Thoughts?",
+        onChange: this.handleTextChange
       }),
       React.createElement("input", {
         type: "submit",
